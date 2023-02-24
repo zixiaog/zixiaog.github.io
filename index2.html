@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        img{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <img src="./assets/images/ele.jpg"  alt="">
+        <img src="./assets/images/ele1.jpg" alt="">
+        <img src="./assets/images/ele2.jpg" alt="">
+        <img src="./assets/images/ele3.jpg" alt="">
+        <img src="./assets/images/ele4.jpg" alt="">
+        <img src="./assets/images/ele5.jpg" alt="">
+    </div>
+    
+</body>
+<script>
+    const html = document.documentElement;
+    let it = html.scrollTop;
+    const main = document.querySelector(".main");
+    const images = document.querySelectorAll("img");
+    images.forEach((item,index) =>{
+        item.style.height = html.clientHeight + 'px';
+        item.setAttribute('data-index',index)
+    })
+    // const callback = entries =>{
+    //     console.log(entries)
+    //     entries.forEach( entry=>  {
+    //         if( entry.isIntersecting ){
+    //             const image = entry.target;
+    //             const data_src= image.getAttribute("data-src");
+    //             image.setAttribute('src',data_src);
+    //             observer.unobserve( image );
+    //         }
+    //     })
+    // }
+    // const observer = new IntersectionObserver( callback );
+    // images.forEach(item =>{
+    //     item.style.height = document.documentElement.clientHeight + 'px'
+    //     observer.observe(item);
+    // })
+    main.addEventListener('touchend',(e)=>{
+       let index =  e.target.getAttribute('data-index')*1;
+       if(html.scrollTop>it){
+          if((html.scrollTop-(html.clientHeight * index) > html.clientHeight / 2)){
+          html.scrollTop = it = html.clientHeight * (index + 1)
+          }else{
+          html.scrollTop = html.clientHeight * index 
+          }
+       }
+       if(html.scrollTop<it){
+          if(((html.clientHeight * index)- html.scrollTop > html.clientHeight / 2)){
+          html.scrollTop = it = html.clientHeight * (index - 1)
+         }else{
+          html.scrollTop = html.clientHeight * index 
+          }
+       }
+    })
+
+
+
+</script>
+</html>

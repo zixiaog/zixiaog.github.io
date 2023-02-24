@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="swiper-bundle.min.css">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        img{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="swiper-bundle.min.js"></script>
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="./assets/images/ele.jpg"  alt="">
+            </div>
+            <div class="swiper-slide">
+                <img src="./assets/images/ele1.jpg"  alt="">
+            </div>
+            <div class="swiper-slide">
+                <img src="./assets/images/ele2.jpg"  alt="">
+            </div>
+            <div class="swiper-slide">
+                <img src="./assets/images/ele3.jpg"  alt="">
+            </div>
+            <div class="swiper-slide">
+                <img src="./assets/images/ele4.jpg"  alt="">
+            </div>
+            <div class="swiper-slide">
+                <img src="./assets/images/ele5.jpg"  alt="">
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+function fixPagesHeight() {
+ $('.swiper-slide,.swiper,img').css({
+    // height: $(window).height(),
+    height: document.documentElement.clientHeight + 'px'
+
+ })
+}
+$(window).on('resize', function() {
+
+ fixPagesHeight();
+
+})
+
+fixPagesHeight();
+
+var mySwiper = new Swiper('.swiper', {
+
+ direction: 'vertical',
+
+ mousewheelControl: true,
+
+ watchSlidesProgress: true,
+
+ onInit: function(swiper) {
+
+     swiper.myactive = 0;
+
+ },
+
+ onProgress: function(swiper) {
+
+     for (var i = 0; i < swiper.slides.length; i++) {
+
+         var slide = swiper.slides[i];
+
+         var progress = slide.progress;
+
+         var translate, boxShadow;
+
+         translate = progress * swiper.height * 0.8;
+
+         scale = 1 - Math.min(Math.abs(progress * 0.2), 1);
+
+         boxShadowOpacity = 0;
+
+         slide.style.boxShadow = '0px 0px 10px rgba(0,0,0,' + boxShadowOpacity + ')';
+
+         if (i == swiper.myactive) {
+
+             es = slide.style;
+
+             es.webkitTransform = es.MsTransform = es.msTransform = es.MozTransform = es.OTransform = es.transform = 'translate3d(0,' + (translate) + 'px,0) scale(' + scale + ')';
+
+             es.zIndex=0;
+
+         }else{
+
+             es = slide.style;
+
+             es.webkitTransform = es.MsTransform = es.msTransform = es.MozTransform = es.OTransform = es.transform ='';
+
+             es.zIndex=1;
+
+         }
+
+     }
+
+ },
+
+ onTransitionEnd: function(swiper, speed) {
+
+     for (var i = 0; i < swiper.slides.length; i++) {
+
+     //    es = swiper.slides[i].style;
+
+     //    es.webkitTransform = es.MsTransform = es.msTransform = es.MozTransform = es.OTransform = es.transform = '';
+
+     //    swiper.slides[i].style.zIndex = Math.abs(swiper.slides[i].progress);
+
+     }
+
+     swiper.myactive = swiper.activeIndex;
+
+ },
+
+ onSetTransition: function(swiper, speed) {
+
+     for (var i = 0; i < swiper.slides.length; i++) {
+
+         //if (i == swiper.myactive) {
+
+             es = swiper.slides[i].style;
+
+             es.webkitTransitionDuration = es.MsTransitionDuration = es.msTransitionDuration = es.MozTransitionDuration = es.OTransitionDuration = es.transitionDuration = speed + 'ms';
+
+         //}
+
+     }
+
+ }
+
+});
+
+
+</script>
+</html>
